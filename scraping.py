@@ -5,9 +5,13 @@ import time
 chrome_path = "chromedriver.exe"
 
 def scrape_cards_count():
-	driver = webdriver.Chrome(chrome_path)
+	driver_options = webdriver.ChromeOptions()
+	driver_options.add_argument('--ignore-certificate-errors')
+	driver_options.add_argument('--incognito')
+	driver_options.add_argument('--headless')
+	driver = webdriver.Chrome(chrome_path, chrome_options = driver_options)
 	try:
-		driver.get("https://jsonplaceholder.typicod/")
+		driver.get("https://jsonplaceholder.typicode.com/")
 		message = driver.find_element_by_id("run-button")
 		print("Cards count: ", message.text)
 	except:
